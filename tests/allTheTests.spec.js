@@ -1,15 +1,17 @@
 const { expect } = require('chai');
-const app = require('../app');
-
-/*** START OF GAME ***/
-// Exactly same as start of round conditions, except that no one has a Seal of Excellence yet
+const initialState = require('../app');
 
 describe('Game Setup', () => {
   describe('The Board', () => {
-    describe('setUpTokens()', () => {
-      let setUpTokensResult = app.setUpTokens();
+    let initialStateResult = initialState;
 
-      it('should create all the goods tokens (arranged in descending order), the bonus tokens, the seals of excellence, and the camel token', () => {
+    it('should return an empty board', () => {
+      expect(initialStateResult).to.deep.equal({/*  board: {}  */});
+    });
+
+    xdescribe('The Tokens (i.e., the supply)', () => {
+
+      xit('should create all the goods tokens (arranged in descending order), the bonus tokens, the seals of excellence, and the camel token', () => {
         // banal goods
         expect(setUpTokensResult.leather).to.deep.equal([4, 3, 2, 1, 1, 1, 1, 1, 1]);
         expect(setUpTokensResult.spices).to.deep.equal([5, 3, 3, 2, 2, 1, 1]);
@@ -48,7 +50,7 @@ describe('Game Setup', () => {
     it('the bonus tokens are in their respective stacks');
   });
 
-  describe('setUpMarket()', () => {
+  describe('The Cards (i.e., the market)', () => {
     it('should have a deck, a discard pile, and a market');
 
     it(
