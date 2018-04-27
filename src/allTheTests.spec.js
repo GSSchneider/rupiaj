@@ -1,13 +1,14 @@
 const { expect } = require('chai');
 const getInitialState = require('./game');
+const app = require('./index');
 
 describe('Game Setup', function () {
   describe('The Board', function () {
-    let initialStateResult = getInitialState();
+    let initialStateResult = app();
     console.log('initialStateResult:', initialStateResult);
 
     it('should return the initial state', function () {
-      expect(initialStateResult).to.deep.equal({ board: { foo: 'bar' } });
+      expect(initialStateResult).to.deep.equal({ board: { from: 'initialState' } });
     });
 
     // describe('The Tokens (i.e., the supply)', function () {
