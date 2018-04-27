@@ -25,4 +25,8 @@ function resetBoardReducer(state = {}, action) {
   }
 }
 
-module.exports = resetBoardReducer;
+module.exports = {
+  RESET_BOARD,
+  resetBoard,
+  resetBoardReducer,
+};
