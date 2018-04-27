@@ -68,39 +68,3 @@ module.exports = function getInitialState (/* fromJS */) {
 
     return initialState;
 };
-
-
-/* *** ACTION TYPES  *** */
-// const RESET_BOARD = 'RESET_BOARD';
-
-/* *** ACTION CREATORS *** */
-// function resetBoard(board = fromJS(startingBoard)) {
-//   const action = { type: RESET_BOARD, board };
-//   return action;
-// }
-
-// function resetTokens() {
-//   if (this.startOfRound && this.round === 1) return this.startingTokens;
-//   if (this.startOfRound && this.round !== 1) {
-//     this.startingTokens.seals.pop();
-//     return this.startingTokens;
-//   }
-// }
-
-/* *** REDUCERS *** */
-// function reducer(state = initialState, action) {
-//   switch (action.type) {
-//     case RESET_BOARD:
-//       return {
-//         ...state,
-//         board: action.board
-//       };
-//     default:
-//       return state;
-//   }
-// }
-
-// module.exports = reducer;
-// module.exports = {
-//   initialState,
-// };

@@ -1,9 +1,8 @@
 const { expect } = require('chai');
-const getInitialState = require('../game/getInitialState');
+const getInitialState = require('./game');
 
 describe('Game Setup', function () {
   describe('The Board', function () {
-    // let initialStateResult = getInitialState();
     let initialStateResult = getInitialState();
     console.log('initialStateResult:', initialStateResult);
 

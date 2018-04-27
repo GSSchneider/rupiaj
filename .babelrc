@@ -1,4 +1,8 @@
 {
-  "presets": ["react", "env", "stage-2"]
+  "presets": ["env"],
+  "plugins": [
+    "add-module-exports",
+    "transform-es2015-modules-commonjs"
+  ]
 }
 
