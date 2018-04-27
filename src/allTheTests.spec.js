@@ -1,14 +1,14 @@
 const { expect } = require('chai');
+const { fromJS } = require('immutable');
 // const getInitialState = require('./game');
 const app = require('./index');
 
 describe('Game Setup', function () {
   describe('The Board', function () {
-    let initialStateResult = app().board;
-    console.log('initialStateResult:', initialStateResult);
+    const initialStateResult = app().board;
 
     it('should return the initial state of the board', function () {
-      expect(initialStateResult).to.deep.equal({
+      expect(initialStateResult).to.deep.equal(fromJS({
         tokens: {
           // common goods
           leather: [4, 3, 2, 1, 1, 1, 1, 1, 1],
@@ -62,7 +62,7 @@ describe('Game Setup', function () {
             seals: 0
           }
         }
-      });
+      }));
     });
 
     // describe('The Tokens (i.e., the supply)', function () {

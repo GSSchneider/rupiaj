@@ -1,24 +1,17 @@
-// const { fromJS } = require('immutable');
-const initialState = require('../src/freshBoard');
-// console.log('freshBoard().board:', freshBoard().board);
+const { fromJS, Map } = require('immutable');
 
-// /* *** INITIAL STATE *** */
-// const initialState = {
-//   // board: {
-//     from: 'initialState'
-//   // }
-// };
+const initialState = require('../src/initialState');
+
+const board = fromJS(initialState().board);
 
 /* *** ACTION TYPES  *** */
 const RESET_BOARD = 'RESET_BOARD';
-// const { board } = getInitialState();
-// const board = fromJS(getInitialState());
 
 /* *** ACTION CREATORS *** */
 const resetBoard = () => {
   const action = {
     type: RESET_BOARD,
-    board: initialState().board
+    board
   };
   return (action);
 }; // fromJS( getInitialState() )
@@ -34,8 +27,20 @@ const resetBoard = () => {
 /* *** REDUCERS *** */
 function resetBoardReducer(state = {}, action) {
   switch (action.type) {
-    case RESET_BOARD:
-      return action.board;
+    case RESET_BOARD: {
+
+      // grab board keys & values
+      const [...boardKeys] = action.board.keys();
+      const [...boardValues] = action.board.values();
+
+      // interleave the key & values because `Map.set` takes them in that key-value order
+      const interlovenBoardKeyValues = boardKeys.reduce( (accumulator, currentValue, currentIndex) => {
+        return accumulator.concat(currentValue, boardValues[currentIndex]);
+      }, []);
+
+      // update the board
+      return board.set(...interlovenBoardKeyValues);
+    }
     default:
       return state;
   }

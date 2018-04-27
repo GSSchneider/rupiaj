@@ -11,6 +11,17 @@ module.exports = function getInitialState (/* fromJS */) {
     // },
 
     board: {
+    // DUMMY DATA
+    //   foo: 'bar',
+    //   happiness: {
+    //     is: {
+    //       a: {
+    //         warm: 'puppy'
+    //       }
+    //     }
+    //   }
+    //  }
+
       tokens: {
         // common goods
         leather: [4, 3, 2, 1, 1, 1, 1, 1, 1],
