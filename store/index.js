@@ -1,11 +1,10 @@
 const { createStore, applyMiddleware, combineReducers } = require('redux');
 // const { createLogger } = require('redux-logger');
 const createCLILogger = require('redux-cli-logger').default;
-console.log('createCLILogger:', createCLILogger);
 const thunkMiddleware = require('redux-thunk').default;
 const { composeWithDevTools } = require('redux-devtools-extension');
 
-const resetBoardReducer = require('./resetBoard').resetBoardReducer;
+const board = require('./resetBoard').resetBoardReducer;
 
 const CLILoggerOptions = {
   downArrow: '▼',
@@ -23,7 +22,7 @@ const CLILoggerOptions = {
   actionTransformer: (action) => action,
 };
 
-const reducer = combineReducers({ resetBoard: resetBoardReducer });
+const reducer = combineReducers({ board });
 const middleware = composeWithDevTools(applyMiddleware(
   thunkMiddleware,
   createCLILogger(CLILoggerOptions)

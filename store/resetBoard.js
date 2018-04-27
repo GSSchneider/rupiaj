@@ -1,14 +1,27 @@
-const { fromJS } = require('immutable');
-const getInitialState = require('../src/game');
+// const { fromJS } = require('immutable');
+const initialState = require('../src/game');
+
+// /* *** INITIAL STATE *** */
+// const initialState = {
+//   // board: {
+//     from: 'initialState'
+//   // }
+// };
 
 /* *** ACTION TYPES  *** */
 const RESET_BOARD = 'RESET_BOARD';
-const { board } = getInitialState();
+// const { board } = getInitialState();
 // const board = fromJS(getInitialState());
 
 /* *** ACTION CREATORS *** */
 const resetBoard = () => {
-  return ({ type: RESET_BOARD, board });
+  const action = {
+    type: RESET_BOARD,
+    board: {
+      from: 'action creator via resetBoardReducer'
+    }
+  };
+  return (action);
 }; // fromJS( getInitialState() )
 
 // function resetTokens() {
@@ -20,13 +33,10 @@ const resetBoard = () => {
 // }
 
 /* *** REDUCERS *** */
-function resetBoardReducer(state = { board: { from: 'reducer' } }, action) {
+function resetBoardReducer(state = initialState, action) {
   switch (action.type) {
     case RESET_BOARD:
-      return {
-        ...state,
-        board: action.board
-      };
+      return action.board;
     default:
       return state;
   }
