@@ -10,7 +10,7 @@ module.exports = function getInitialState (/* fromJS */) {
     //   playersTurn: 1,
     // },
 
-    board: { foo: 'bar' }
+    board: { from: 'initialState' }
     //   tokens: {
     //     // common goods
     //     leather: [4, 3, 2, 1, 1, 1, 1, 1, 1],
