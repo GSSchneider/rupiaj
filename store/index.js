@@ -1,14 +1,32 @@
 const { createStore, applyMiddleware, combineReducers } = require('redux');
-const { createLogger } = require('redux-logger');
+// const { createLogger } = require('redux-logger');
+const createCLILogger = require('redux-cli-logger').default;
+console.log('createCLILogger:', createCLILogger);
 const thunkMiddleware = require('redux-thunk').default;
 const { composeWithDevTools } = require('redux-devtools-extension');
 
 const resetBoardReducer = require('./resetBoard').resetBoardReducer;
 
+const CLILoggerOptions = {
+  downArrow: '▼',
+  rightArrow: '▶',
+  messageColor: 'yellow',
+  prevColor: 'grey',
+  actionColor: 'blue',
+  nextColor: 'green',
+  log: console.log,
+  // when non-null, only prints if predicate(getState, action) is truthy
+  predicate: null,
+  // useful to trim parts of the state atom that are too verbose
+  stateTransformer: (state) => state,
+  // useful to censor private messages (containing password, etc.)
+  actionTransformer: (action) => action,
+};
+
 const reducer = combineReducers({ resetBoard: resetBoardReducer });
 const middleware = composeWithDevTools(applyMiddleware(
   thunkMiddleware,
-  createLogger(/* { collapsed: true } */)
+  createCLILogger(CLILoggerOptions)
 ));
 
 const store = createStore(reducer, middleware);
