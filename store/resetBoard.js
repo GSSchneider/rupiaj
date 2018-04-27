@@ -33,7 +33,7 @@ function resetBoardReducer(state = {}, action) {
       const [...boardKeys] = action.board.keys();
       const [...boardValues] = action.board.values();
 
-      // interleave the key & values because `Map.set` takes them in that key-value order
+      // interleave the key & values because `Map.set` takes them in key-value order
       const interlovenBoardKeyValues = boardKeys.reduce( (accumulator, currentValue, currentIndex) => {
         return accumulator.concat(currentValue, boardValues[currentIndex]);
       }, []);
