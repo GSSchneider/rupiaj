@@ -1,3 +1,6 @@
+const { fromJS } = require('immutable');
+const getInitialState = require('../src/game');
+
 /* *** ACTION TYPES  *** */
 const RESET_BOARD = 'RESET_BOARD';
 
@@ -13,7 +16,7 @@ const resetBoard = (board = fromJS( getInitialState() )) => ({ type: RESET_BOARD
 // }
 
 /* *** REDUCERS *** */
-function resetBoardReducer(state = {}, action) {
+function resetBoardReducer(state = { hello: 'world' }, action) {
   switch (action.type) {
     case RESET_BOARD:
       return {

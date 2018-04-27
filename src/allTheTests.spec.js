@@ -65,15 +65,15 @@ describe('Game Setup', function () {
   //   );
   // });
 
-  describe('The Players', function () {
-    describe('dealCardsToPlayers()', function () {
-      it('should deal 5 cards to each player from the deck');
+  // describe('The Players', function () {
+  //   describe('dealCardsToPlayers()', function () {
+  //     it('should deal 5 cards to each player from the deck');
 
-      it('should alternate in its dealing');
+  //     it('should alternate in its dealing');
 
-      it('should put any camels dealt into their herd');
-    });
-  });
+  //     it('should put any camels dealt into their herd');
+  //   });
+  // });
 });
 
 // describe('Game Play', function () {
