@@ -5,105 +5,144 @@ const app = require('./index');
 
 describe('Game Setup', function () {
   describe('The Board', function () {
-    const initialState = fromJS({
-      tokens: {
-        // common goods
-        leather: [4, 3, 2, 1, 1, 1, 1, 1, 1],
-        spices: [5, 3, 3, 2, 2, 1, 1],
-        silks: [5, 3, 3, 2, 2, 1, 1],
-
-        // precious goods
-        silver: [5, 5, 5, 5, 5],
-        gold: [6, 6, 5, 5, 5],
-        diamonds: [7, 7, 5, 5, 5],
-
-        // bonuses
-        threeCardBonus: {
-          1: 2,
-          2: 3,
-          3: 2
-        },
-        fourCardBonus: {
-          4: 2,
-          5: 2,
-          6: 2
-        },
-        fiveCardBonus: {
-          8: 2,
-          9: 1,
-          10: 2
-        },
-
-        // camel
-        camel: 5,
-
-        // seals of excellence
-        seals: [0, 0, 0]
-      },
-
-      cards: {
-        deck: [],
-        discard: [],
-        market: {},
-      },
-
-      players: {
-        playerOne: {
-          hand: {},
-          herd: 0,
-          seals: 0
-        },
-        playerTwo: {
-          hand: {},
-          herd: 0,
-          seals: 0
-        }
-      }
-    });
-
-    const initialStateResult = app().board;
-
-    it('should return the initial state of the board', function () {
-      expect(initialStateResult).to.deep.equal(initialState);
-    });
-
-    // describe('The Tokens (i.e., the supply)', function () {
-
-    //   xit('should create all the goods tokens (arranged in descending order), the bonus tokens, the seals of excellence, and the camel token', function () {
-    //     // banal goods
-    //     expect(setUpTokensResult.leather).to.deep.equal([4, 3, 2, 1, 1, 1, 1, 1, 1]);
-    //     expect(setUpTokensResult.spices).to.deep.equal([5, 3, 3, 2, 2, 1, 1]);
-    //     expect(setUpTokensResult.silks).to.deep.equal([5, 3, 3, 2, 2, 1, 1]);
+    // const initialState = fromJS({
+    //   tokens: {
+    //     // common goods
+    //     leather: [4, 3, 2, 1, 1, 1, 1, 1, 1],
+    //     spices: [5, 3, 3, 2, 2, 1, 1],
+    //     silks: [5, 3, 3, 2, 2, 1, 1],
 
     //     // precious goods
-    //     expect(setUpTokensResult.silver).to.deep.equal([5, 5, 5, 5, 5]);
-    //     expect(setUpTokensResult.gold).to.deep.equal([6, 6, 5, 5, 5]);
-    //     expect(setUpTokensResult.diamonds).to.deep.equal([7, 7, 5, 5, 5]);
+    //     silver: [5, 5, 5, 5, 5],
+    //     gold: [6, 6, 5, 5, 5],
+    //     diamonds: [7, 7, 5, 5, 5],
 
     //     // bonuses
-    //     expect(setUpTokensResult.threeCardBonus).to.deep.equal({
+    //     threeCardBonus: {
     //       1: 2,
     //       2: 3,
     //       3: 2
-    //     });
-    //     expect(setUpTokensResult.fourCardBonus).to.deep.equal({
+    //     },
+    //     fourCardBonus: {
     //       4: 2,
     //       5: 2,
     //       6: 2
-    //     });
-    //     expect(setUpTokensResult.fiveCardBonus).to.deep.equal({
+    //     },
+    //     fiveCardBonus: {
     //       8: 2,
     //       9: 1,
     //       10: 2
-    //     });
+    //     },
 
-    //     // camels
-    //     expect(setUpTokensResult.camel).to.deep.equal(5);
+    //     // camel
+    //     camel: 5,
 
-    //     // seal of excellence
-    //     expect(setUpTokensResult.seals).to.deep.equal([0, 0, 0]);
-    //   });
+    //     // seals of excellence
+    //     seals: [0, 0, 0]
+    //   },
+
+    //   cards: {
+    //     deck: [],
+    //     discard: [],
+    //     market: {},
+    //   },
+
+    //   players: {
+    //     playerOne: {
+    //       hand: {},
+    //       herd: 0,
+    //       seals: 0
+    //     },
+    //     playerTwo: {
+    //       hand: {},
+    //       herd: 0,
+    //       seals: 0
+    //     }
+    //   }
     // });
+
+    const initialStateResult = app().board;
+
+    // it('should return the initial state of the board', function () {
+    //   expect(initialStateResult).to.deep.equal(initialState);
+    // });
+
+    describe('The Tokens (i.e., the supply)', function () {
+
+      it('should create all the goods tokens (arranged in descending order), the bonus tokens, the seals of excellence, and the camel token', function () {
+
+        let [...keys] = initialStateResult.keys();
+        console.log('keys:', keys);
+
+        let [ tokens, cards, players ] = keys;
+        console.log('tokens', tokens);
+
+        // const [...entries] = initialStateResult.entries();
+        // console.log('entries:', entries);
+        // entries.map( entry => {
+        //   const keyName = entry[0];
+        //   const valueData = entry[1];
+        //   if (keyName === key) return { [keyName]: valueData };
+        // });
+
+        // keys.forEach( key => {
+
+        // });
+        // keys.map( key => {
+
+          // initialStateResult.hasIn(key);
+        // });
+
+
+
+        // const interlovenKeyValues = keys.reduce( (accumulator, currentValue, currentIndex) => {
+        //   return accumulator.concat(currentValue, values[currentIndex]);
+        // }, []);
+
+        // const [...gottenKeys] = initialStateResult.getIn(...interlovenKeyValues).keys();
+        // const [...gottenValues] = initialStateResult.getIn(...interlovenKeyValues).values();
+        // console.log('gottenKeys:', gottenKeys);
+        // console.log('gottenValues:', gottenValues);
+
+        // gottenKeys.map( key => {
+        //   const [key] =
+        // })
+
+
+        // banal goods
+        expect(leather).to.deep.equal([4, 3, 2, 1, 1, 1, 1, 1, 1]);
+        expect(spices).to.deep.equal([5, 3, 3, 2, 2, 1, 1]);
+        expect(silks).to.deep.equal([5, 3, 3, 2, 2, 1, 1]);
+
+        // precious goods
+        expect(silver).to.deep.equal([5, 5, 5, 5, 5]);
+        expect(gold).to.deep.equal([6, 6, 5, 5, 5]);
+        expect(diamonds).to.deep.equal([7, 7, 5, 5, 5]);
+
+        // bonuses
+        // expect(setUpTokensResult.threeCardBonus).to.deep.equal({
+        //   1: 2,
+        //   2: 3,
+        //   3: 2
+        // });
+        // expect(setUpTokensResult.fourCardBonus).to.deep.equal({
+        //   4: 2,
+        //   5: 2,
+        //   6: 2
+        // });
+        // expect(setUpTokensResult.fiveCardBonus).to.deep.equal({
+        //   8: 2,
+        //   9: 1,
+        //   10: 2
+        // });
+
+        // camels
+        // expect(setUpTokensResult.camel).to.deep.equal(5);
+
+        // seal of excellence
+        // expect(setUpTokensResult.seals).to.deep.equal([0, 0, 0]);
+      });
+    });
 
     // it('the bonus tokens are in their respective stacks');
   });

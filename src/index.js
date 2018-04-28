@@ -6,7 +6,7 @@ module.exports = function app () {
   // const store = createStore(resetBoardReducer);
 
   // console.log('store.getState before subscribing:', store.getState());
-  store.subscribe( () => console.log('in store.subscribe, store.getState:', store.getState() ));
+  store.subscribe( () => /* console.log('in store.subscribe, store.getState:', */ store.getState() /* ) */);
   // console.log('store.getState after subscribing:', store.getState());
   store.dispatch(resetBoard());
   // console.log('store.getState after dispatching:', store.getState());
