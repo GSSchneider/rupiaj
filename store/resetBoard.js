@@ -37,7 +37,6 @@ function resetBoardReducer(state = {}, action) {
       const interlovenBoardKeyValues = boardKeys.reduce( (accumulator, currentValue, currentIndex) => {
         return accumulator.concat(currentValue, boardValues[currentIndex]);
       }, []);
-
       // update the board
       return board.set(...interlovenBoardKeyValues);
     }

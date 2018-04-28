@@ -1,11 +1,14 @@
-const { expect } = require('chai');
-const { fromJS } = require('immutable');
+const should = require('chai').should();
+const { List } = require('immutable');
 // const getInitialState = require('./game');
 const app = require('./index');
 
+// JUST MAKE AN OBJECT -- NO NEED TO MAKE IMMUTABLE MAP
+
 describe('Game Setup', function () {
   describe('The Board', function () {
-    // const initialState = fromJS({
+
+    // const initialState = {
     //   tokens: {
     //     // common goods
     //     leather: [4, 3, 2, 1, 1, 1, 1, 1, 1],
@@ -59,9 +62,10 @@ describe('Game Setup', function () {
     //       seals: 0
     //     }
     //   }
-    // });
+    // };
 
     const initialStateResult = app().board;
+    console.log('initialStateResult:', initialStateResult);
 
     // it('should return the initial state of the board', function () {
     //   expect(initialStateResult).to.deep.equal(initialState);
@@ -71,53 +75,22 @@ describe('Game Setup', function () {
 
       it('should create all the goods tokens (arranged in descending order), the bonus tokens, the seals of excellence, and the camel token', function () {
 
-        let [...keys] = initialStateResult.keys();
-        console.log('keys:', keys);
-
-        let [ tokens, cards, players ] = keys;
-        console.log('tokens', tokens);
-
-        // const [...entries] = initialStateResult.entries();
-        // console.log('entries:', entries);
-        // entries.map( entry => {
-        //   const keyName = entry[0];
-        //   const valueData = entry[1];
-        //   if (keyName === key) return { [keyName]: valueData };
-        // });
-
-        // keys.forEach( key => {
-
-        // });
-        // keys.map( key => {
-
-          // initialStateResult.hasIn(key);
-        // });
-
-
-
-        // const interlovenKeyValues = keys.reduce( (accumulator, currentValue, currentIndex) => {
-        //   return accumulator.concat(currentValue, values[currentIndex]);
-        // }, []);
-
-        // const [...gottenKeys] = initialStateResult.getIn(...interlovenKeyValues).keys();
-        // const [...gottenValues] = initialStateResult.getIn(...interlovenKeyValues).values();
-        // console.log('gottenKeys:', gottenKeys);
-        // console.log('gottenValues:', gottenValues);
-
-        // gottenKeys.map( key => {
-        //   const [key] =
-        // })
-
+        const leather = initialStateResult.getIn(['tokens', 'leather']);
+        const spices = initialStateResult.getIn(['tokens', 'spices']);
+        const silks = initialStateResult.getIn(['tokens', 'silks']);
+        const silver = initialStateResult.getIn(['tokens', 'silver']);
+        const gold = initialStateResult.getIn(['tokens', 'gold']);
+        const diamonds = initialStateResult.getIn(['tokens', 'diamonds']);
 
         // banal goods
-        expect(leather).to.deep.equal([4, 3, 2, 1, 1, 1, 1, 1, 1]);
-        expect(spices).to.deep.equal([5, 3, 3, 2, 2, 1, 1]);
-        expect(silks).to.deep.equal([5, 3, 3, 2, 2, 1, 1]);
+        leather.should.deep.equal(List([4, 3, 2, 1, 1, 1, 1, 1, 1]));
+        spices.should.deep.equal(List([5, 3, 3, 2, 2, 1, 1]));
+        silks.should.deep.equal(List([5, 3, 3, 2, 2, 1, 1]));
 
         // precious goods
-        expect(silver).to.deep.equal([5, 5, 5, 5, 5]);
-        expect(gold).to.deep.equal([6, 6, 5, 5, 5]);
-        expect(diamonds).to.deep.equal([7, 7, 5, 5, 5]);
+        silver.should.deep.equal(List([5, 5, 5, 5, 5]));
+        gold.should.deep.equal(List([6, 6, 5, 5, 5]));
+        diamonds.should.deep.equal(List([7, 7, 5, 5, 5]));
 
         // bonuses
         // expect(setUpTokensResult.threeCardBonus).to.deep.equal({
