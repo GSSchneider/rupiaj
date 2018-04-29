@@ -1,6 +1,6 @@
 const assert = require('assert').strict;
 
-/* module.exports =  */function trackFrequency(array, toPop, numToPop = array.length) {
+module.exports = function trackFrequency(array, toPop, numToPop) {
   /** Given an array, returns an object with the elements of said array as its keys and the frequency of their occurrences as their respective values -- with an option to pop off the array as you go.
    *
    * EXAMPLE:
@@ -15,7 +15,9 @@ const assert = require('assert').strict;
    *  }
    */
 
-  assert.ok((!!toPop === !!numToPop), 'toPop and numToPop need to be either both truthy or both falsy');
+  if (toPop && (numToPop === undefined)) numToPop = array.length;
+
+  assert.ok((!!toPop == !!numToPop), 'toPop and numToPop need to be either both truthy or both falsy');
 
   let tracker = {};
   let times = numToPop || array.length;
@@ -32,13 +34,14 @@ const assert = require('assert').strict;
     else tracker[currentElement]++;
   }
 
-  // console.log('final array:', array);
-  // console.log('final tracker:', tracker);
+  console.log('final array:', array);
+  console.log('final tracker:', tracker);
 
   return tracker;
 
-}
+};
 
 // const testArray = [ 'C', 'B', 'A', 'B', 'A', 'B', 'C' ];
 
-// trackFrequency(testArray, true, 5);
+// TEST CALL
+// trackFrequency(testArray);
