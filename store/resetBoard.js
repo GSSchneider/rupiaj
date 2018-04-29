@@ -25,7 +25,7 @@ const resetBoard = () => {
 // }
 
 /* *** REDUCERS *** */
-function resetBoardReducer(state = {}, action) {
+function resetBoardReducer(state = Map(), action) {
   switch (action.type) {
     case RESET_BOARD: {
 

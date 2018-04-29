@@ -1,4 +1,5 @@
 const { createStore, applyMiddleware, combineReducers } = require('redux');
+// const { combineReducers } = require('redux-immutable');
 // const { createLogger } = require('redux-logger');
 const createCLILogger = require('redux-cli-logger').default;
 const thunkMiddleware = require('redux-thunk').default;

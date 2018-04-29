@@ -1,9 +1,7 @@
-const should = require('chai').should();
-const { List } = require('immutable');
-// const getInitialState = require('./game');
+const useChaiImmutable = require('chai').use(require('chai-immutable'));
+const { expect } = require('chai');
+const { fromJS } = require('immutable');
 const app = require('./index');
-
-// JUST MAKE AN OBJECT -- NO NEED TO MAKE IMMUTABLE MAP
 
 describe('Game Setup', function () {
   describe('The Board', function () {
@@ -65,7 +63,6 @@ describe('Game Setup', function () {
     // };
 
     const initialStateResult = app().board;
-    console.log('initialStateResult:', initialStateResult);
 
     // it('should return the initial state of the board', function () {
     //   expect(initialStateResult).to.deep.equal(initialState);
@@ -75,45 +72,54 @@ describe('Game Setup', function () {
 
       it('should create all the goods tokens (arranged in descending order), the bonus tokens, the seals of excellence, and the camel token', function () {
 
+        /* BANAL GOODS */
         const leather = initialStateResult.getIn(['tokens', 'leather']);
         const spices = initialStateResult.getIn(['tokens', 'spices']);
         const silks = initialStateResult.getIn(['tokens', 'silks']);
+
+        expect(leather).to.equal(fromJS([4, 3, 2, 1, 1, 1, 1, 1, 1]));
+        expect(spices).to.equal(fromJS([5, 3, 3, 2, 2, 1, 1]));
+        expect(silks).to.equal(fromJS([5, 3, 3, 2, 2, 1, 1]));
+
+        /* PRECIOUS GOODS */
         const silver = initialStateResult.getIn(['tokens', 'silver']);
         const gold = initialStateResult.getIn(['tokens', 'gold']);
         const diamonds = initialStateResult.getIn(['tokens', 'diamonds']);
 
-        // banal goods
-        leather.should.deep.equal(List([4, 3, 2, 1, 1, 1, 1, 1, 1]));
-        spices.should.deep.equal(List([5, 3, 3, 2, 2, 1, 1]));
-        silks.should.deep.equal(List([5, 3, 3, 2, 2, 1, 1]));
+        expect(silver).to.equal(fromJS([5, 5, 5, 5, 5]));
+        expect(gold).to.equal(fromJS([6, 6, 5, 5, 5]));
+        expect(diamonds).to.equal(fromJS([7, 7, 5, 5, 5]));
 
-        // precious goods
-        silver.should.deep.equal(List([5, 5, 5, 5, 5]));
-        gold.should.deep.equal(List([6, 6, 5, 5, 5]));
-        diamonds.should.deep.equal(List([7, 7, 5, 5, 5]));
+        /* BONUSES */
+        const threeCardBonus = initialStateResult.getIn(['tokens', 'threeCardBonus']);
+        const fourCardBonus = initialStateResult.getIn(['tokens', 'fourCardBonus']);
+        const fiveCardBonus = initialStateResult.getIn(['tokens', 'fiveCardBonus']);
 
-        // bonuses
-        // expect(setUpTokensResult.threeCardBonus).to.deep.equal({
-        //   1: 2,
-        //   2: 3,
-        //   3: 2
-        // });
-        // expect(setUpTokensResult.fourCardBonus).to.deep.equal({
-        //   4: 2,
-        //   5: 2,
-        //   6: 2
-        // });
-        // expect(setUpTokensResult.fiveCardBonus).to.deep.equal({
-        //   8: 2,
-        //   9: 1,
-        //   10: 2
-        // });
+        expect(threeCardBonus).to.equal(fromJS({
+          1: 2,
+          2: 3,
+          3: 2
+        }));
+        expect(fourCardBonus).to.equal(fromJS({
+          4: 2,
+          5: 2,
+          6: 2
+        }));
+        expect(fiveCardBonus).to.equal(fromJS({
+          8: 2,
+          9: 1,
+          10: 2
+        }));
 
-        // camels
-        // expect(setUpTokensResult.camel).to.deep.equal(5);
+        /* CAMEL */
+        const camel = initialStateResult.getIn(['tokens', 'camel']);
 
-        // seal of excellence
-        // expect(setUpTokensResult.seals).to.deep.equal([0, 0, 0]);
+        expect(camel).to.equal(5);
+
+        /* SEALS */
+        const seals = initialStateResult.getIn(['tokens', 'seals']);
+
+        expect(seals).to.equal(fromJS([0, 0, 0]));
       });
     });
 
