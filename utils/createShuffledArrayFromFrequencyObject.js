@@ -1,4 +1,20 @@
 module.exports = function createShuffledArrayFromFrequencyObject(freqObj) {
+  /**
+   * In this context, "frequency object" means an object whose values reflect the frequency of occurrences of their respective keys.
+   *
+   * EXAMPLE:
+   *
+   * Given a collection: 1 foo, 2 bar, 1 qux
+   *
+   * `freqObj = {
+   *    foo: 1,
+   *    bar: 2,
+   *    qux: 1
+   *  }`
+   *
+   * This function ultimately generates, for example: `[bar, foo, qux, bar]`.
+   */
+
   let array;
 
   function createArray(freqObj) {
