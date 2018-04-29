@@ -1,5 +1,7 @@
-module.exports = function trackFrequency(array) {
-  /** Given an array, returns an object with the elements of said array as its keys and the frequency of their occurrences as their respective values.
+const assert = require('assert').strict;
+
+/* module.exports =  */function trackFrequency(array, toPop, numToPop = array.length) {
+  /** Given an array, returns an object with the elements of said array as its keys and the frequency of their occurrences as their respective values -- with an option to pop off the array as you go.
    *
    * EXAMPLE:
    * Given:
@@ -12,15 +14,31 @@ module.exports = function trackFrequency(array) {
    *   'C': 2
    *  }
    */
-  let tracker = {};
 
-  for (let i = 0; i < array.length; i++) {
-    if (!tracker[array[i]]) {
-      tracker[array[i]] = 1;
+  assert.ok((!!toPop === !!numToPop), 'toPop and numToPop need to be either both truthy or both falsy');
+
+  let tracker = {};
+  let times = numToPop || array.length;
+
+  for (let i = 0; i < times; i++) {
+    let currentElement = array[i];
+
+    // if popping off the array:
+    if (toPop) {
+      currentElement = array.pop();
     }
-    else {
-      tracker[array[i]]++;
-    }
+
+    if (!tracker[currentElement]) tracker[currentElement] = 1;
+    else tracker[currentElement]++;
   }
+
+  // console.log('final array:', array);
+  // console.log('final tracker:', tracker);
+
   return tracker;
-};
+
+}
+
+// const testArray = [ 'C', 'B', 'A', 'B', 'A', 'B', 'C' ];
+
+// trackFrequency(testArray, true, 5);
