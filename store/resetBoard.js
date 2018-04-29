@@ -1,6 +1,7 @@
 const { fromJS, Map } = require('immutable');
 
 const initialState = require('../src/initialState');
+const { interleaveKeysAndValues } = require('../utils/index');
 
 const board = fromJS(initialState().board);
 
@@ -34,11 +35,9 @@ function resetBoardReducer(state = Map(), action) {
       const [...boardValues] = action.board.values();
 
       // interleave the key & values because `Map.set` takes them in key-value order
-      const interlovenBoardKeyValues = boardKeys.reduce( (accumulator, currentValue, currentIndex) => {
-        return accumulator.concat(currentValue, boardValues[currentIndex]);
-      }, []);
+      const interlovenBoardKeysAndValues = interleaveKeysAndValues(boardKeys, boardValues);
       // update the board
-      return board.set(...interlovenBoardKeyValues);
+      return board.set(...interlovenBoardKeysAndValues);
     }
     default:
       return state;
