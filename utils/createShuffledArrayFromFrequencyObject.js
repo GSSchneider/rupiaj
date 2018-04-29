@@ -1,36 +1,39 @@
-module.exports = function createShuffledArrayFromFrequencyObject(freqObj) {
+module.exports = function createShuffledArrayFromFrequencyObject(freqObj, areKeysNums) {
   /**
    * In this context, "frequency object" means an object whose values reflect the frequency of occurrences of their respective keys.
    *
    * EXAMPLE:
    *
-   * Given a collection: 1 foo, 2 bar, 1 qux
+   *  Given a collection -- 1 foo, 2 bar, 1 qux -- as an object:
+   *    {
+   *      foo: 1,
+   *      bar: 2,
+   *      qux: 1
+   *    }
    *
-   * `freqObj = {
-   *    foo: 1,
-   *    bar: 2,
-   *    qux: 1
-   *  }`
+   *  Returns, for example:
+   *    [bar, foo, qux, bar]
    *
-   * This function ultimately generates, for example: `[bar, foo, qux, bar]`.
    */
 
   let array;
 
-  function createArray(freqObj) {
+  function createArray(freqObj, areKeysNums) {
     let generatedArray = [];
 
     for (let key in freqObj) {
       for(let times = 1; times <= freqObj[key]; times++) {
-        generatedArray.push(key);
+        if (areKeysNums) generatedArray.push(Number(key));
+        else generatedArray.push(key);
       }
     }
 
-    console.log('generated array:', generatedArray);
+    // console.log('generated array:', generatedArray);
     return generatedArray;
   }
 
-  array = createArray(freqObj);
+  if (areKeysNums) array = createArray(freqObj, true);
+  else array = createArray(freqObj, false);
 
   /** FISHER-YATES SHUFFLE
    * https://bost.ocks.org/mike/shuffle/
@@ -51,17 +54,9 @@ module.exports = function createShuffledArrayFromFrequencyObject(freqObj) {
       [array[back], array[front]] = [array[front], array[back]];
     }
 
-    console.log('shuffled array:', array);
+    // console.log('shuffled array:', array);
     return array;
   }
 
   return shuffleArray(array);
 };
-
-// const threeCardBonus = {
-//   1: 2,
-//   2: 3,
-//   3: 2
-// };
-
-// createShuffledArrayFromFrequencyObject(threeCardBonus);
