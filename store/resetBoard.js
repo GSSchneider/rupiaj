@@ -9,7 +9,7 @@ const board = fromJS(initialState().board);
 const RESET_BOARD = 'RESET_BOARD';
 
 /* *** ACTION CREATORS *** */
-const resetBoard = () => {
+const resetBoard = () => { // maybe this fn will ultimately just call a bunch of smaller fns that reset indiv pieces of the board
   const action = {
     type: RESET_BOARD,
     board
@@ -17,7 +17,7 @@ const resetBoard = () => {
   return (action);
 };
 
-// TO BE DELETED:
+// TO BE DELETED?:
 // function resetTokens() {
 //   if (this.startOfRound && this.round === 1) return this.startingTokens;
 //   if (this.startOfRound && this.round !== 1) {

@@ -9,7 +9,11 @@ const logError = chalk.bold.red;
 module.exports = function putListElementsIntoMap(list, toPop, numToPop) {
   /** Given an immutable list, returns an immutable map with the elements of said list as its keys and the frequency of their occurrences as their respective values -- with an option to pop off the list as you go.
    *
-   * EXAMPLE:
+   * @param {list} immutable list
+   * @param {boolean} toPop - A designation as to whether to pop off the array as the list elements are are put into the map
+   * @param {boolean} numToPop - Number of items to pop -- and put into the map -- if toPop is true; if not provided, the default is to pop off the entire list.
+   * @returns {map} immutable map - the elements in passed-in list
+   * @example
    * Given:
    *  [ 'C', 'B', 'A', 'B', 'A', 'B', 'C' ]
    *
