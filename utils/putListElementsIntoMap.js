@@ -12,7 +12,7 @@ module.exports = function putListElementsIntoMap(list, toPop, numToPop) {
    * @param {list} immutable list
    * @param {boolean} toPop - A designation as to whether to pop off the array as the list elements are are put into the map
    * @param {boolean} numToPop - Number of items to pop -- and put into the map -- if toPop is true; if not provided, the default is to pop off the entire list.
-   * @returns {map} immutable map - the elements in passed-in list
+   * @returns {map} immutable map - The elements in passed-in list, the number of which can be designated by numToPop, as a frequency object in the form of an immutable map.
    * @example
    * Given:
    *  [ 'C', 'B', 'A', 'B', 'A', 'B', 'C' ]
