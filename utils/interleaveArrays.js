@@ -1,7 +1,9 @@
 module.exports = function interleaveArrays(array1, array2) {
   /**
-   * EXAMPLE:
-   *
+   * @param {array} One array.
+   * @param {array} Another array.
+   * @returns {array} A new array with the passed in arrays interleaved.
+   * @example
    * Given: [a, b, c] and [x, y, z]
    * Returns: [a, x, b, y, c, z]
    */
