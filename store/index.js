@@ -1,5 +1,5 @@
 const { createStore, applyMiddleware, combineReducers } = require('redux');
-// const { combineReducers } = require('redux-immutable');
+// const { combineReducers } = require('redux-immutable'); // TO DO:  Figure out why the combineReducers from redux-immutable seems to break all the things
 // const { createLogger } = require('redux-logger');
 const createCLILogger = require('redux-cli-logger').default;
 const thunkMiddleware = require('redux-thunk').default;
@@ -7,6 +7,7 @@ const { composeWithDevTools } = require('redux-devtools-extension');
 
 const board = require('./resetBoard').resetBoardReducer;
 
+// from redux-cli-logger, modified so it actually works:
 const CLILoggerOptions = {
   downArrow: '▼',
   rightArrow: '▶',

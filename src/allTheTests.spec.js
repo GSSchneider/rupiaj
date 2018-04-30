@@ -1,11 +1,16 @@
 const useChaiImmutable = require('chai').use(require('chai-immutable'));
 const { expect } = require('chai');
-const { fromJS } = require('immutable');
+const { fromJS, List } = require('immutable');
 const app = require('./index');
+const putListElementsIntoMap = require('../utils/putListElementsIntoMap');
 
 describe('Game Setup', function () {
+
+  const initialState = app().board;
+
   describe('The Board', function () {
 
+    // FOR REFERENCE ONLY (actual initialState is in ./initialState.js) -- TO BE DELETED:
     // const initialState = {
     //   tokens: {
     //     // common goods
@@ -18,7 +23,7 @@ describe('Game Setup', function () {
     //     gold: [6, 6, 5, 5, 5],
     //     diamonds: [7, 7, 5, 5, 5],
 
-    //     // bonuses
+    //     // bonuses => each of these are turned into shuffled arrays when initialized
     //     threeCardBonus: {
     //       1: 2,
     //       2: 3,
@@ -39,13 +44,24 @@ describe('Game Setup', function () {
     //     camel: 5,
 
     //     // seals of excellence
-    //     seals: [0, 0, 0]
+    //     seals: 3
     //   },
 
     //   cards: {
-    //     deck: [],
+    //     deck: {
+    //      leather: 10,
+    //      silks: 8,
+    //      spices: 8,
+    //      silver: 6,
+    //      gold: 6,
+    //      diamonds: 6,
+    //      camel: 8
+    //     },
     //     discard: [],
-    //     market: {},
+    //     market: {
+    //      camel: 3
+    //      <2 other cards from the shuffled deck>
+    //     },
     //   },
 
     //   players: {
@@ -62,10 +78,9 @@ describe('Game Setup', function () {
     //   }
     // };
 
-    const initialStateResult = app().board;
-
+    // TESTING -- TO BE DELETED:
     // it('should return the initial state of the board', function () {
-    //   expect(initialStateResult).to.deep.equal(initialState);
+    //   expect(initialState).to.deep.equal(initialState);
     // });
 
     describe('The Tokens (i.e., the supply)', function () {
@@ -73,82 +88,85 @@ describe('Game Setup', function () {
       it('should create all the goods tokens (arranged in descending order), the bonus tokens, the seals of excellence, and the camel token', function () {
 
         /* BANAL GOODS */
-        const leather = initialStateResult.getIn(['tokens', 'leather']);
-        const spices = initialStateResult.getIn(['tokens', 'spices']);
-        const silks = initialStateResult.getIn(['tokens', 'silks']);
+        const leather = initialState.getIn(['tokens', 'leather']);
+        const spices = initialState.getIn(['tokens', 'spices']);
+        const silks = initialState.getIn(['tokens', 'silks']);
 
-        expect(leather).to.equal(fromJS([4, 3, 2, 1, 1, 1, 1, 1, 1]));
-        expect(spices).to.equal(fromJS([5, 3, 3, 2, 2, 1, 1]));
-        expect(silks).to.equal(fromJS([5, 3, 3, 2, 2, 1, 1]));
+        expect(leather).to.deep.equal(fromJS([4, 3, 2, 1, 1, 1, 1, 1, 1]));
+        expect(spices).to.deep.equal(fromJS([5, 3, 3, 2, 2, 1, 1]));
+        expect(silks).to.deep.equal(fromJS([5, 3, 3, 2, 2, 1, 1]));
 
         /* PRECIOUS GOODS */
-        const silver = initialStateResult.getIn(['tokens', 'silver']);
-        const gold = initialStateResult.getIn(['tokens', 'gold']);
-        const diamonds = initialStateResult.getIn(['tokens', 'diamonds']);
+        const silver = initialState.getIn(['tokens', 'silver']);
+        const gold = initialState.getIn(['tokens', 'gold']);
+        const diamonds = initialState.getIn(['tokens', 'diamonds']);
 
-        expect(silver).to.equal(fromJS([5, 5, 5, 5, 5]));
-        expect(gold).to.equal(fromJS([6, 6, 5, 5, 5]));
-        expect(diamonds).to.equal(fromJS([7, 7, 5, 5, 5]));
+        expect(silver).to.deep.equal(fromJS([5, 5, 5, 5, 5]));
+        expect(gold).to.deep.equal(fromJS([6, 6, 5, 5, 5]));
+        expect(diamonds).to.deep.equal(fromJS([7, 7, 5, 5, 5]));
 
         /* BONUSES */
-        const threeCardBonus = initialStateResult.getIn(['tokens', 'threeCardBonus']);
-        const fourCardBonus = initialStateResult.getIn(['tokens', 'fourCardBonus']);
-        const fiveCardBonus = initialStateResult.getIn(['tokens', 'fiveCardBonus']);
+        const threeCardBonus = initialState.getIn(['tokens', 'threeCardBonus']).toJS();
+        const fourCardBonus = initialState.getIn(['tokens', 'fourCardBonus']).toJS();
+        const fiveCardBonus = initialState.getIn(['tokens', 'fiveCardBonus']).toJS();
 
-        expect(threeCardBonus).to.equal(fromJS({
+        expect(putListElementsIntoMap(threeCardBonus)).to.deep.equal({
           1: 2,
           2: 3,
           3: 2
-        }));
-        expect(fourCardBonus).to.equal(fromJS({
+        });
+        expect(putListElementsIntoMap(fourCardBonus)).to.deep.equal({
           4: 2,
           5: 2,
           6: 2
-        }));
-        expect(fiveCardBonus).to.equal(fromJS({
+        });
+        expect(putListElementsIntoMap(fiveCardBonus)).to.deep.equal({
           8: 2,
           9: 1,
           10: 2
-        }));
+        });
 
         /* CAMEL */
-        const camel = initialStateResult.getIn(['tokens', 'camel']);
+        const camel = initialState.getIn(['tokens', 'camel']);
 
-        expect(camel).to.equal(5);
+        expect(camel).to.deep.equal(5);
 
         /* SEALS */
-        const seals = initialStateResult.getIn(['tokens', 'seals']);
+        const seals = initialState.getIn(['tokens', 'seals']);
 
-        expect(seals).to.equal(fromJS([0, 0, 0]));
+        expect(seals).to.deep.equal(3);
       });
-    });
 
-    // it('the bonus tokens are in their respective stacks');
+      it('the bonus tokens should be shuffled in their respective stacks'); // they ARE, but how to test this?  spyOn some fns to see if they've been called?
+
+    });
   });
 
-  // describe('The Cards (i.e., the market)', function () {
-  //   it('should have a deck, a discard pile, and a market');
+  describe('The Cards (i.e., the market)', function () {
+    it('should have a deck, a discard pile, and a market', () => {
 
-  //   it(
-  //     'should shuffle the deck (52 cards [i.e., sans 3 camels] in a random sequence)'
-  //   );
+    });
 
-  //   it('should set up an empty discard pile');
+    it('should shuffle the deck (52 cards [i.e., sans 3 camels] in a random sequence)');
 
-  //   it(
-  //     'should set up the market with 3 camels cards and the top 2 cards from the shuffled deck'
-  //   );
-  // });
+    it('should set up an empty discard pile', function () {
+      const discard = initialState.getIn(['cards', 'discard']);
 
-  // describe('The Players', function () {
-  //   describe('dealCardsToPlayers()', function () {
-  //     it('should deal 5 cards to each player from the deck');
+      expect(discard).to.deep.equal(fromJS([]));
+    });
 
-  //     it('should alternate in its dealing');
+    it('should set up the market with 3 camel cards and the top 2 cards from the shuffled deck');
+  });
 
-  //     it('should put any camels dealt into their herd');
-  //   });
-  // });
+  describe('The Players', function () {
+    describe('dealCardsToPlayers()', function () {
+      it('should deal 5 cards to each player from the deck', () => {
+
+      });
+
+      it('should put any camels dealt into their herd');
+    });
+  });
 });
 
 // describe('Game Play', function () {

@@ -1,4 +1,40 @@
-// const { fromJS } = require('immutable');
+const { List, Map } = require('immutable');
+
+const shuffle = require('../utils/createShuffledArrayFromFrequencyObject');
+const deal = require('../utils/putListElementsIntoMap');
+
+const areBonusTokensNumbers = true;
+const removeFromDeck = true;
+
+const threeCardBonus = {
+  1: 2,
+  2: 3,
+  3: 2
+};
+
+const fourCardBonus = {
+  4: 2,
+  5: 2,
+  6: 2
+};
+
+const fiveCardBonus = {
+  8: 2,
+  9: 1,
+  10: 2
+};
+
+const deck = {
+  leather: 10,
+  spices: 8,
+  silks: 8,
+  silver: 6,
+  gold: 6,
+  diamonds: 6,
+  camel: 8 // actually 11 camel cards in the game, but only 8 of them will ever be in the deck, since 3 of them always start out in the market
+};
+
+const shuffledDeck = List(shuffle(deck)); // made an immutable List b/c the trackFrequency fn that
 
 module.exports = function getInitialState (/* fromJS */) {
 
@@ -11,7 +47,7 @@ module.exports = function getInitialState (/* fromJS */) {
     // },
 
     board: {
-    // DUMMY DATA
+    // DUMMY DATA -- TO BE DELETED:
     //   foo: 'bar',
     //   happiness: {
     //     is: {
@@ -34,43 +70,34 @@ module.exports = function getInitialState (/* fromJS */) {
         diamonds: [7, 7, 5, 5, 5],
 
         // bonuses
-        threeCardBonus: {
-          1: 2,
-          2: 3,
-          3: 2
-        },
-        fourCardBonus: {
-          4: 2,
-          5: 2,
-          6: 2
-        },
-        fiveCardBonus: {
-          8: 2,
-          9: 1,
-          10: 2
-        },
+        threeCardBonus: shuffle(threeCardBonus, areBonusTokensNumbers),
+        fourCardBonus: shuffle(fourCardBonus, areBonusTokensNumbers),
+        fiveCardBonus: shuffle(fiveCardBonus, areBonusTokensNumbers),
 
         // camel
-        camel: 5,
+        camel: 5, // point value thereof
 
         // seals of excellence
-        seals: [0, 0, 0]
+        seals: 3 // number thereof
       },
 
       cards: {
-        deck: [],
+        deck: shuffledDeck,
         discard: [],
-        market: {},
+        market: { // TODO: cannot let camel number be re-written if any of the 2 cards dealt from the deck are camel cards
+          camel: 3,
+          ...deal(shuffledDeck, removeFromDeck, 2)
+        },
       },
 
       players: {
         playerOne: {
-          hand: {},
+          hand: deal(shuffledDeck, removeFromDeck, 5),
           herd: 0,
           seals: 0
         },
         playerTwo: {
-          hand: {},
+          hand: deal(shuffledDeck, removeFromDeck, 5),
           herd: 0,
           seals: 0
         }

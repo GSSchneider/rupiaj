@@ -32,8 +32,8 @@ module.exports = function createShuffledArrayFromFrequencyObject(freqObj, areKey
     return generatedArray;
   }
 
-  if (areKeysNums) array = createArray(freqObj, true);
-  else array = createArray(freqObj, false);
+  if (areKeysNums) array = createArray(freqObj, areKeysNums);
+  else array = createArray(freqObj);
 
   /** FISHER-YATES SHUFFLE
    * https://bost.ocks.org/mike/shuffle/

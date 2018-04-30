@@ -1,7 +1,7 @@
 const { fromJS, Map } = require('immutable');
 
 const initialState = require('../src/initialState');
-const { interleaveKeysAndValues } = require('../utils/index');
+const interleave = require('../utils/interleaveArrays');
 
 const board = fromJS(initialState().board);
 
@@ -15,8 +15,9 @@ const resetBoard = () => {
     board
   };
   return (action);
-}; // fromJS( getInitialState() )
+};
 
+// TO BE DELETED:
 // function resetTokens() {
 //   if (this.startOfRound && this.round === 1) return this.startingTokens;
 //   if (this.startOfRound && this.round !== 1) {
@@ -35,7 +36,7 @@ function resetBoardReducer(state = Map(), action) {
       const [...boardValues] = action.board.values();
 
       // interleave the key & values because `Map.set` takes them in key-value order
-      const interlovenBoardKeysAndValues = interleaveKeysAndValues(boardKeys, boardValues);
+      const interlovenBoardKeysAndValues = interleave(boardKeys, boardValues);
       // update the board
       return board.set(...interlovenBoardKeysAndValues);
     }
