@@ -1,3 +1,5 @@
+'use strict';
+
 const assert = require('assert').strict;
 const { List, Map } = require('immutable');
 const chalk = require('chalk');
@@ -26,11 +28,15 @@ module.exports = function putListElementsIntoMap(list, toPop, numToPop) {
    */
 
   // set default of numToPop only if toPop is true
-  if (toPop && (numToPop === undefined)) numToPop = list.size;
+  if (toPop && numToPop === undefined) numToPop = list.size;
 
-  if (typeof numToPop === 'number' && numToPop < 0) throw new Error(logError('numToPop has to be greater than or equal to 0'));
+  if (typeof numToPop === 'number' && numToPop < 0)
+    throw new Error(logError('numToPop has to be greater than or equal to 0'));
 
-  if (!!toPop !== !!numToPop) throw new Error(logError('toPop and numToPop need to be either both truthy or both falsy')); // so don't try to do silly things like say you're not going to pop off anything, but then specify a number (other than 0) to pop off
+  if (!!toPop !== !!numToPop)
+    throw new Error(
+      logError('toPop and numToPop need to be either both truthy or both falsy')
+    ); // so don't try to do silly things like say you're not going to pop off anything, but then specify a number (other than 0) to pop off
 
   let tracker = Map();
   let times = numToPop || list.size;
@@ -41,7 +47,8 @@ module.exports = function putListElementsIntoMap(list, toPop, numToPop) {
     // if popping off the list:
     if (toPop) currentElement = list.pop();
 
-    if (!tracker[currentElement]) tracker.set(tracker[currentElement], 1); // equivalent to `tracker[currentElement] + 1`
+    if (!tracker[currentElement]) tracker.set(tracker[currentElement], 1);
+    // equivalent to `tracker[currentElement] + 1`
     else tracker.set(tracker[currentElement], tracker[currentElement] + 1); // equivalent to `tracker[currentElement]++`
   }
 
@@ -49,7 +56,6 @@ module.exports = function putListElementsIntoMap(list, toPop, numToPop) {
   console.log('final tracker:', tracker.entries);
 
   return tracker;
-
 };
 
 // TESTING -- TO BE DELETED:

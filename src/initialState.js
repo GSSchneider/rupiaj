@@ -1,3 +1,5 @@
+'use strict';
+
 const { List, Map } = require('immutable');
 
 const shuffle = require('../utils/createShuffledArrayFromFrequencyObject');
@@ -36,8 +38,7 @@ const deck = {
 
 const shuffledDeck = List(shuffle(deck)); // made an immutable List b/c the trackFrequency fn that
 
-module.exports = function getInitialState (/* fromJS */) {
-
+module.exports = function getInitialState(/* fromJS */) {
   /* *** INITIAL STATE *** */
   const initialState = {
     // logistics: {
@@ -47,16 +48,16 @@ module.exports = function getInitialState (/* fromJS */) {
     // },
 
     board: {
-    // DUMMY DATA -- TO BE DELETED:
-    //   foo: 'bar',
-    //   happiness: {
-    //     is: {
-    //       a: {
-    //         warm: 'puppy'
-    //       }
-    //     }
-    //   }
-    //  }
+      // DUMMY DATA -- TO BE DELETED:
+      //   foo: 'bar',
+      //   happiness: {
+      //     is: {
+      //       a: {
+      //         warm: 'puppy'
+      //       }
+      //     }
+      //   }
+      //  }
 
       tokens: {
         // common goods
@@ -84,10 +85,11 @@ module.exports = function getInitialState (/* fromJS */) {
       cards: {
         deck: shuffledDeck,
         discard: [],
-        market: { // TODO: cannot let camel number be re-written if any of the 2 cards dealt from the deck are camel cards
+        market: {
+          // TODO: cannot let camel number be re-written if any of the 2 cards dealt from the deck are camel cards
           camel: 3,
           ...deal(shuffledDeck, removeFromDeck, 2)
-        },
+        }
       },
 
       players: {

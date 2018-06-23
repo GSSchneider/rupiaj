@@ -84,61 +84,61 @@ describe('Game Setup', function () {
     // });
 
     describe('The Tokens (i.e., the supply)', function () {
+      describe('resetTokens()', function () {
+        it('should reset all the goods tokens (arranged in descending order), the bonus tokens, the seals of excellence, and the camel token', function () {
 
-      it('should create all the goods tokens (arranged in descending order), the bonus tokens, the seals of excellence, and the camel token', function () {
+          /* BANAL GOODS */
+          const leather = initialState.getIn(['tokens', 'leather']);
+          const spices = initialState.getIn(['tokens', 'spices']);
+          const silks = initialState.getIn(['tokens', 'silks']);
 
-        /* BANAL GOODS */
-        const leather = initialState.getIn(['tokens', 'leather']);
-        const spices = initialState.getIn(['tokens', 'spices']);
-        const silks = initialState.getIn(['tokens', 'silks']);
+          expect(leather).to.deep.equal(fromJS([4, 3, 2, 1, 1, 1, 1, 1, 1]));
+          expect(spices).to.deep.equal(fromJS([5, 3, 3, 2, 2, 1, 1]));
+          expect(silks).to.deep.equal(fromJS([5, 3, 3, 2, 2, 1, 1]));
 
-        expect(leather).to.deep.equal(fromJS([4, 3, 2, 1, 1, 1, 1, 1, 1]));
-        expect(spices).to.deep.equal(fromJS([5, 3, 3, 2, 2, 1, 1]));
-        expect(silks).to.deep.equal(fromJS([5, 3, 3, 2, 2, 1, 1]));
+          /* PRECIOUS GOODS */
+          const silver = initialState.getIn(['tokens', 'silver']);
+          const gold = initialState.getIn(['tokens', 'gold']);
+          const diamonds = initialState.getIn(['tokens', 'diamonds']);
 
-        /* PRECIOUS GOODS */
-        const silver = initialState.getIn(['tokens', 'silver']);
-        const gold = initialState.getIn(['tokens', 'gold']);
-        const diamonds = initialState.getIn(['tokens', 'diamonds']);
+          expect(silver).to.deep.equal(fromJS([5, 5, 5, 5, 5]));
+          expect(gold).to.deep.equal(fromJS([6, 6, 5, 5, 5]));
+          expect(diamonds).to.deep.equal(fromJS([7, 7, 5, 5, 5]));
 
-        expect(silver).to.deep.equal(fromJS([5, 5, 5, 5, 5]));
-        expect(gold).to.deep.equal(fromJS([6, 6, 5, 5, 5]));
-        expect(diamonds).to.deep.equal(fromJS([7, 7, 5, 5, 5]));
+          /* BONUSES */
+          const threeCardBonus = initialState.getIn(['tokens', 'threeCardBonus']).toJS();
+          const fourCardBonus = initialState.getIn(['tokens', 'fourCardBonus']).toJS();
+          const fiveCardBonus = initialState.getIn(['tokens', 'fiveCardBonus']).toJS();
 
-        /* BONUSES */
-        const threeCardBonus = initialState.getIn(['tokens', 'threeCardBonus']).toJS();
-        const fourCardBonus = initialState.getIn(['tokens', 'fourCardBonus']).toJS();
-        const fiveCardBonus = initialState.getIn(['tokens', 'fiveCardBonus']).toJS();
+          expect(putListElementsIntoMap(threeCardBonus)).to.deep.equal({
+            1: 2,
+            2: 3,
+            3: 2
+          });
+          expect(putListElementsIntoMap(fourCardBonus)).to.deep.equal({
+            4: 2,
+            5: 2,
+            6: 2
+          });
+          expect(putListElementsIntoMap(fiveCardBonus)).to.deep.equal({
+            8: 2,
+            9: 1,
+            10: 2
+          });
 
-        expect(putListElementsIntoMap(threeCardBonus)).to.deep.equal({
-          1: 2,
-          2: 3,
-          3: 2
+          /* CAMEL */
+          const camel = initialState.getIn(['tokens', 'camel']);
+
+          expect(camel).to.deep.equal(5);
+
+          /* SEALS */
+          const seals = initialState.getIn(['tokens', 'seals']);
+
+          expect(seals).to.deep.equal(3);
         });
-        expect(putListElementsIntoMap(fourCardBonus)).to.deep.equal({
-          4: 2,
-          5: 2,
-          6: 2
-        });
-        expect(putListElementsIntoMap(fiveCardBonus)).to.deep.equal({
-          8: 2,
-          9: 1,
-          10: 2
-        });
 
-        /* CAMEL */
-        const camel = initialState.getIn(['tokens', 'camel']);
-
-        expect(camel).to.deep.equal(5);
-
-        /* SEALS */
-        const seals = initialState.getIn(['tokens', 'seals']);
-
-        expect(seals).to.deep.equal(3);
+        it('the bonus tokens should be shuffled in their respective stacks'); // they ARE, but how to test this?  spyOn some fns to see if they've been called?
       });
-
-      it('the bonus tokens should be shuffled in their respective stacks'); // they ARE, but how to test this?  spyOn some fns to see if they've been called?
-
     });
   });
 
@@ -169,136 +169,136 @@ describe('Game Setup', function () {
   });
 });
 
-// describe('Game Play', function () {
-//   describe('General Mechanics', function () {
-//     it('should have only 2 players');
+describe('Game Play', function () {
+  describe('General Mechanics', function () {
+    it('should have only 2 players');
 
-//     it('players should alternate turns');
+    it('players should alternate turns');
 
-//     it(
-//       'the player with the most number of points at the end of a round should win that round'
-//     );
+    it(
+      'the player with the most number of points at the end of a round should win that round'
+    );
 
-//     it('the player with 2 (out of 3) seals of excellence should win the game');
+    it('the player with 2 (out of 3) seals of excellence should win the game');
 
-//     it(
-//       'the market should always have 5 (and only 5) cards by the end of a turn'
-//     );
+    it(
+      'the market should always have 5 (and only 5) cards by the end of a turn'
+    );
 
-//     it('when acquired, camels should go into herds, not hands');
+    it('when acquired, camels should go into herds, not hands');
 
-//     it(
-//       'a round should end immediately when either the third goods tokens pile is depleted or the market cannot be refilled from the deck'
-//     );
+    it(
+      'a round should end immediately when either the third goods tokens pile is depleted or the market cannot be refilled from the deck'
+    );
 
-//     it(
-//       "the game should end immediately upon a single player's acquisition of their 2nd seal of excellence"
-//     );
+    it(
+      "the game should end immediately upon a single player's acquisition of their 2nd seal of excellence"
+    );
 
-//     describe('Shown Information', function () {
-//       it('the market should always be visible to both players');
+    describe('Shown Information', function () {
+      it('the market should always be visible to both players');
 
-//       it(
-//         'the remaining goods tokens -- and their values -- should always be visible to both players'
-//       );
+      it(
+        'the remaining goods tokens -- and their values -- should always be visible to both players'
+      );
 
-//       it('the number bonus tokens should always be visible to both players');
+      it('the number bonus tokens should always be visible to both players');
 
-//       it(
-//         'only whether a player has any camels should be visible to the other player'
-//       );
-//     });
+      it(
+        'only whether a player has any camels should be visible to the other player'
+      );
+    });
 
-//     describe('Hidden Information', function () {
-//       it(
-//         'the cards in the deck should always be hidden only until they are revealed when refilling the market'
-//       );
+    describe('Hidden Information', function () {
+      it(
+        'the cards in the deck should always be hidden only until they are revealed when refilling the market'
+      );
 
-//       it(
-//         "the values of the bonus tokens in the supply should always be hidden from both players (only upon award for a sale does a player get to see a bonus token's value)"
-//       );
-//     });
+      it(
+        "the values of the bonus tokens in the supply should always be hidden from both players (only upon award for a sale does a player get to see a bonus token's value)"
+      );
+    });
 
-//     describe('Private Information', function () {
-//       it("each player's hand should be secret from the other player");
+    describe('Private Information', function () {
+      it("each player's hand should be secret from the other player");
 
-//       it(
-//         'the number of camels a player has, other than whether 0 or > 0, should be hidden from the other player'
-//       );
+      it(
+        'the number of camels a player has, other than whether 0 or > 0, should be hidden from the other player'
+      );
 
-//       it('a player should be able to see the values of their bonus tokens');
+      it('a player should be able to see the values of their bonus tokens');
 
-//       it(
-//         "the values of a player's bonus tokens should be secret from the other player"
-//       );
-//     });
-//   });
+      it(
+        "the values of a player's bonus tokens should be secret from the other player"
+      );
+    });
+  });
 
-//   describe('Player Turn', function () {
-//     // afterEach(/* Refill the market */);
+  describe('Player Turn', function () {
+    // afterEach(/* Refill the market */);
 
-//     describe('Buy', function () {
-//       describe('Take all the camels', function () {
-//         it(
-//           "should remove all the camels from the market and put them in the player's herd"
-//         );
-//       });
+    describe('Buy', function () {
+      describe('Take all the camels', function () {
+        it(
+          "should remove all the camels from the market and put them in the player's herd"
+        );
+      });
 
-//       describe('Take a single card for free', function () {
-//         it(
-//           "should remove a single goods card from the market and put it in the player's hand"
-//         );
+      describe('Take a single card for free', function () {
+        it(
+          "should remove a single goods card from the market and put it in the player's hand"
+        );
 
-//         it(
-//           'should not be an option if the player already has 7 cards in their hand'
-//         );
-//       });
+        it(
+          'should not be an option if the player already has 7 cards in their hand'
+        );
+      });
 
-//       describe('Exchange 2+ goods cards', function () {
-//         it(
-//           "should exchange 2 or more goods cards from the player's hand with 2 or more goods cards from the market"
-//         );
+      describe('Exchange 2+ goods cards', function () {
+        it(
+          "should exchange 2 or more goods cards from the player's hand with 2 or more goods cards from the market"
+        );
 
-//         it('should be such that none of exchanged goods are the same');
-//       });
-//     });
+        it('should be such that none of exchanged goods are the same');
+      });
+    });
 
-//     describe('Sell', function () {
-//       it('should be illegal to sell more than one type of good');
+    describe('Sell', function () {
+      it('should be illegal to sell more than one type of good');
 
-//       it(
-//         "should remove cards from the player's hand and put them in the discard pile"
-//       );
+      it(
+        "should remove cards from the player's hand and put them in the discard pile"
+      );
 
-//       it(
-//         'should remove the corresponding number of tokens from the equivalent goods pile -- in order!'
-//       );
+      it(
+        'should remove the corresponding number of tokens from the equivalent goods pile -- in order!'
+      );
 
-//       it(
-//         'should award the player a bonus token based on the size of the set of goods the player is selling (i.e., 3-card bonus for 3 cards, 4-card bonus for 4 cards, 5-card bonus for 5+ cards)'
-//       );
+      it(
+        'should award the player a bonus token based on the size of the set of goods the player is selling (i.e., 3-card bonus for 3 cards, 4-card bonus for 4 cards, 5-card bonus for 5+ cards)'
+      );
 
-//       it(
-//         "should update the player's total points with the total value of all the tokens they receive for that sale"
-//       );
+      it(
+        "should update the player's total points with the total value of all the tokens they receive for that sale"
+      );
 
-//       it(
-//         'should award the player only the number of goods tokens available in the actual supply'
-//       );
+      it(
+        'should award the player only the number of goods tokens available in the actual supply'
+      );
 
-//       it(
-//         'should be illegal to sell only one precious good (silver, gold, diamond) card at a time'
-//       );
-//     });
-//   });
+      it(
+        'should be illegal to sell only one precious good (silver, gold, diamond) card at a time'
+      );
+    });
+  });
 
-//   describe('End of Turn', function () {
-//     it(
-//       'should refill the market with cards drawn from the deck, up to 5 cards'
-//     );
+  describe('End of Turn', function () {
+    it(
+      'should refill the market with cards drawn from the deck, up to 5 cards'
+    );
 
-//     it(
-//       'should immediately terminate the round if the market cannot be refilled because the deck has been depleted'
-//     );
-//   });
-// });
+    it(
+      'should immediately terminate the round if the market cannot be refilled because the deck has been depleted'
+    );
+  });
+});
